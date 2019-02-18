@@ -14,12 +14,12 @@ public interface StudentRepository extends Repository<Student, Integer> {
     @Transactional(readOnly = true)
 	Collection<Student> findByLastName(@Param("lastName") String lastName);
 	
-	@Query("SELECT DISTINCT student FROM Student student WHERE student.lastName LIKE :lastName% OR student.studentId LIKE :lastName%")
+	@Query("SELECT DISTINCT student FROM Student student WHERE student.lastName LIKE :lastName% OR student.studentid LIKE :lastName%")
     @Transactional(readOnly = true)
 	Collection<Student> findByLastNameAndId(@Param("lastName") String lastName);
 	
 	
-	@Query("SELECT student FROM Student student WHERE student.studentId =:id")
+	@Query("SELECT student FROM Student student WHERE student.studentid =:id")
     @Transactional(readOnly = true)
 	Student findById(@Param("id") String id);
 	

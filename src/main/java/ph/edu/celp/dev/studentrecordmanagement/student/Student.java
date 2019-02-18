@@ -87,7 +87,15 @@ public class Student extends Person {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfGraduation;
     
-    public Set<StudentEnrollment> getEnrollments() {
+    public String getStudentid() {
+		return studentid;
+	}
+
+	public void setStudentid(String studentid) {
+		this.studentid = studentid;
+	}
+
+	public Set<StudentEnrollment> getEnrollments() {
 		return enrollments;
 	}
 
@@ -98,13 +106,6 @@ public class Student extends Person {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private Set<StudentEnrollment> enrollments;
 
-	public String getStudentId() {
-		return studentid;
-	}
-
-	public void setStudentId(String studentId) {
-		this.studentid = studentId;
-	}
 
 	public LocalDate getDob() {
 		return dob;

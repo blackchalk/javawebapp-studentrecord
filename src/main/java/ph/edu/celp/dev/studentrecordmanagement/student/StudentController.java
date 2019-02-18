@@ -46,7 +46,7 @@ public class StudentController {
 	            return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 	        } else {
 	            this.studentsRepo.save(student);
-	            return "redirect:/students/" + student.getStudentId();
+	            return "redirect:/students/" + student.getStudentid();
 	        }
 	    }
 
@@ -73,7 +73,7 @@ public class StudentController {
 	        } else if (results.size() == 1) {
 	            // 1 owner found
 	            student = results.iterator().next();
-	            return "redirect:/students/" + student.getStudentId();
+	            return "redirect:/students/" + student.getStudentid();
 	        } else {
 	            // multiple owners found
 	            model.put("selections", results);
@@ -81,21 +81,21 @@ public class StudentController {
 	        }
 	    }
 
-	    @GetMapping("/students/{studentId}/edit")
-	    public String initUpdateOwnerForm(@PathVariable("studentId") String studentId, Model model) {
-	        Student student = this.studentsRepo.findById(studentId);
+	    @GetMapping("/students/{studentid}/edit")
+	    public String initUpdateOwnerForm(@PathVariable("studentid") String studentid, Model model) {
+	        Student student = this.studentsRepo.findById(studentid);
 	        model.addAttribute(student);
 	        return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 	    }
 
-	    @PostMapping("/students/{studentId}/edit")
-	    public String processUpdateOwnerForm(@Valid Student student, BindingResult result, @PathVariable("studentId") String studentId) {
+	    @PostMapping("/students/{studentid}/edit")
+	    public String processUpdateOwnerForm(@Valid Student student, BindingResult result, @PathVariable("studentid") String studentid) {
 	        if (result.hasErrors()) {
 	            return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 	        } else {
-	        	student.setStudentId(studentId);
+	        	student.setStudentid(studentid);
 	            this.studentsRepo.save(student);
-	            return "redirect:/students/{studentId}";
+	            return "redirect:/students/{studentid}";
 	        }
 	    }
 
@@ -105,10 +105,10 @@ public class StudentController {
 	     * @param ownerId the ID of the owner to display
 	     * @return a ModelMap with the model attributes for the view
 	     */
-	    @GetMapping("/students/{studentId}")
-	    public ModelAndView showOwner(@PathVariable("studentId") String studentId) {
+	    @GetMapping("/students/{studentid}")
+	    public ModelAndView showOwner(@PathVariable("studentid") String studentid) {
 	        ModelAndView mav = new ModelAndView("students/studentDetails");
-	        mav.addObject(this.studentsRepo.findById(studentId));
+	        mav.addObject(this.studentsRepo.findById(studentid));
 	        return mav;
 	    }
 
