@@ -16,7 +16,7 @@
       </tr>
       <tr>
         <th>ID</th>
-        <td th:text="*{studentId}" /></td>
+        <td th:text="*{studentid}" /></td>
       </tr>
       <tr>
         <th>Date Of Birth</th>
@@ -69,9 +69,9 @@
       
     </table>
   
-    <a th:href="@{{id}/edit(id=${student.studentId})}" class="btn btn-default">Edit
+    <a th:href="@{{id}/edit(id=${student.id})}" class="btn btn-default">Edit
       Student</a>
-    <a th:href="@{{id}/pets/new(id=${student.studentId})}" class="btn btn-default">Add
+    <a th:href="@{{id}/enrollments/new(id=${student.id})}" class="btn btn-default">Add
       New Enrollment</a>
   
     <br />
@@ -81,7 +81,7 @@
   
     <table class="table table-striped">
   
-      <tr th:each="enrollment : ${student.enrollments}">
+      <!-- <tr th:each="enrollment : ${student.enrollments}">
         <td valign="top">
           <dl class="dl-horizontal">
             <dt>Term</dt>
@@ -103,21 +103,20 @@
               </tr>
             </thead>
             <tr th:each="studentGrade : ${enrollment.studentGrades}">
-             <!--   <td th:text="${#temporals.format(enrollment.date, 'yyyy-MM-dd')}"></td>-->
               <td th:text="${studentGrade?.courseId}"></td>
                 <td th:text="${studentGrade?.finalGrade}"></td>
             </tr>
             <tr>
               <td><a
-                th:href="@{{studentId}/enrollments/{enrollmentId}/edit(studentId=${student.id},enrollmentId=${enrollment.id})}">Edit
+                th:href="@{{id}/enrollments/{enrollmentid}/edit(id=${student.id},enrollmentid=${enrollment.id})}">Edit
                   Enrollment</a></td>
               <td><a
-                th:href="@{{studentId}/enrollments/{enrollmentId}/visits/new(studentId=${student.id},enrollmentId=${enrollment.id})}">Add
+                th:href="@{{id}/enrollments/{enrollmentid}/visits/new(id=${student.id},enrollmentid=${enrollment.id})}">Add
                   Enrollment</a></td>
             </tr>
           </table>
         </td>
-      </tr>
+      </tr> -->
   
     </table>
   

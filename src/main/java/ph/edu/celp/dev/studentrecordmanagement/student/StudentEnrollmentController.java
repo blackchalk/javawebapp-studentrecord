@@ -13,7 +13,7 @@ import java.util.Collection;
 
 
 @Controller
-@RequestMapping("/students/{studentId}")
+@RequestMapping("/students/{id}")
 class StudentEnrollmentController {
 
     private static final String VIEWS_ENROLLMENTS_CREATE_OR_UPDATE_FORM = "enrollments/createOrUpdateEnrollmentForm";
@@ -31,8 +31,8 @@ class StudentEnrollmentController {
 //    }
 
     @ModelAttribute("student")
-    public Student findStudent(@PathVariable("studentId") int studentId) {
-        return this.studentRepo.findById(studentId);
+    public Student findStudent(@PathVariable("id") int id) {
+        return this.studentRepo.findById(id);
     }
 
     @InitBinder("student")
@@ -64,18 +64,18 @@ class StudentEnrollmentController {
             return VIEWS_ENROLLMENTS_CREATE_OR_UPDATE_FORM;
         } else {
             this.seRepo.save(se);
-            return "redirect:/students/{studentId}";
+            return "redirect:/students/{owner.id}";
         }
     }
 
-    @GetMapping("/enrollments/{enrollmentId}/edit")
-    public String initUpdateForm(@PathVariable("enrollmentId") int enrollmentId, ModelMap model) {
+    @GetMapping("/enrollments/{id}/edit")
+    public String initUpdateForm(@PathVariable("id") int enrollmentId, ModelMap model) {
         StudentEnrollment enrollment = this.seRepo.findById(enrollmentId);
         model.put("enrollment", enrollment);
         return VIEWS_ENROLLMENTS_CREATE_OR_UPDATE_FORM;
     }
 
-    @PostMapping("/enrollments/{enrollmentId}/edit")
+    @PostMapping("/enrollments/{id}/edit")
     public String processUpdateForm(@Valid StudentEnrollment studentEnrollment, BindingResult result, Student student, ModelMap model) {
         if (result.hasErrors()) {
         	studentEnrollment.setStudent(student);
@@ -84,7 +84,7 @@ class StudentEnrollmentController {
         } else {
         	student.addStudentEnrollment(studentEnrollment);
             this.seRepo.save(studentEnrollment);
-            return "redirect:/students/{studentId}";
+            return "redirect:/students/{student.id}";
         }
     }
 

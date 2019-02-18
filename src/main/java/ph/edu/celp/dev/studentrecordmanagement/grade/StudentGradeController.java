@@ -47,7 +47,7 @@ class StudentGradeController {
     }
 
     // Spring MVC calls method 
-    @PostMapping("/students/{studentId}/enrollments/{endrollmentId}/grades/new")
+    @PostMapping("/students/{id}/enrollments/{endrollmentId}/grades/new")
     public String processNewGradeForm(@Valid StudentGrade grade, BindingResult result) {
         if (result.hasErrors()) {
             return "enrollments/createOrUpdateGradeForm";

@@ -56,7 +56,7 @@ public class StudentController {
 	        return "students/findStudents";
 	    }
 
-	    @GetMapping("/student")
+	    @GetMapping("/students")
 	    public String processFindForm(Student student, BindingResult result, Map<String, Object> model) {
 
 	        // allow parameterless GET request for /owners to return all records
@@ -65,7 +65,7 @@ public class StudentController {
 	        }
 
 	        // find owners by last name
-	        Collection<Student> results = this.studentsRepo.findByLastName(student.getLastName());
+	        Collection<Student> results = this.studentsRepo.findByLastNameAndId(student.getLastName());
 	        if (results.isEmpty()) {
 	            // no owners found
 	            result.rejectValue("lastName", "notFound", "not found");
@@ -81,21 +81,21 @@ public class StudentController {
 	        }
 	    }
 
-	    @GetMapping("/students/{studentId}/edit")
-	    public String initUpdateOwnerForm(@PathVariable("studentId") int studentId, Model model) {
+	    @GetMapping("/students/{id}/edit")
+	    public String initUpdateOwnerForm(@PathVariable("id") int studentId, Model model) {
 	        Student student = this.studentsRepo.findById(studentId);
 	        model.addAttribute(student);
 	        return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 	    }
 
-	    @PostMapping("/students/{studentId}/edit")
-	    public String processUpdateOwnerForm(@Valid Student student, BindingResult result, @PathVariable("studentId") int studentId) {
+	    @PostMapping("/students/{id}/edit")
+	    public String processUpdateOwnerForm(@Valid Student student, BindingResult result, @PathVariable("id") int id) {
 	        if (result.hasErrors()) {
 	            return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 	        } else {
-	        	student.setId(studentId);
+	        	student.setId(id);
 	            this.studentsRepo.save(student);
-	            return "redirect:/students/{studentId}";
+	            return "redirect:/students/{id}";
 	        }
 	    }
 
@@ -105,8 +105,8 @@ public class StudentController {
 	     * @param ownerId the ID of the owner to display
 	     * @return a ModelMap with the model attributes for the view
 	     */
-	    @GetMapping("/students/{studentId}")
-	    public ModelAndView showOwner(@PathVariable("studentId") int studentId) {
+	    @GetMapping("/students/{id}")
+	    public ModelAndView showOwner(@PathVariable("id") int studentId) {
 	        ModelAndView mav = new ModelAndView("students/studentDetails");
 	        mav.addObject(this.studentsRepo.findById(studentId));
 	        return mav;

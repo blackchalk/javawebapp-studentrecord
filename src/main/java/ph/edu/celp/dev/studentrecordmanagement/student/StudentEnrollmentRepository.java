@@ -11,6 +11,7 @@ public interface StudentEnrollmentRepository extends Repository<StudentEnrollmen
 //	@Query("SELECT se.schoolTerm FROM StudentEnrollment se WHERE se.student_id =:id ORDER BY se.startDate")
 //	String getTerm(String id);
 	
+	@Query("SELECT se FROM StudentEnrollment se WHERE se.id =:id")
     @Transactional(readOnly = true)
     StudentEnrollment findById(Integer id);
 	
