@@ -1,0 +1,66 @@
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'enrollments')}">
+
+<body>
+
+  <h2>
+    <th:block th:if="${grade['new']}">New </th:block>
+    Subject
+  </h2>
+
+  <b>Subject</b>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Term</th>
+        <th>StartDate</th>
+        <th>EndDate</th>
+        <th>Student</th>
+      </tr>
+    </thead>
+    <tr>
+      <td th:text="${enrollment.schoolTerm}" /></td>
+      <td
+        th:text="${#temporals.format(enrollment.startDate, 'yyyy-MM-dd')}" /></td>
+              <td
+        th:text="${#temporals.format(enrollment.endDate, 'yyyy-MM-dd')}" /></td>
+      <td
+        th:text="${enrollment.student?.firstName + ' ' + enrollment.student?.lastName}" /></td>
+    </tr>
+  </table>
+
+  <form th:object="${grade}" class="form-horizontal" method="post">
+    <div class="form-group has-feedback">
+      <input
+        th:replace="~{fragments/inputField :: input ('Course Name', 'courseId', 'text')}"  />
+      <input
+        th:replace="~{fragments/inputField :: input ('Final Grade', 'finalGrade', 'text')}" />
+        <input
+        th:replace="~{fragments/inputField :: input ('Re-Exam Grade', 'reexamGrade', 'text')}" />
+        <input
+        th:replace="~{fragments/inputField :: input ('Enrollment Id', '${enrollment.enrollmentId}', 'text')}" />
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <input type="hidden" name="petId" th:value="${enrollment.id}" />
+        <button class="btn btn-default" type="submit">Add Grade</button>
+      </div>
+    </div>
+  </form>
+
+  <br />
+  <b>Previous Grades</b>
+  <table class="table table-striped">
+    <tr>
+      <th>Course Id</th>
+      <th>Final Grade</th>
+    </tr>
+    <tr th:if="${!grade['new']}" th:each="grade : ${enrollment.grades}">
+      <td th:text="${grade.courseId}" /></td>
+      <td th:text=" ${grade.finalGrade}" /></td>
+    </tr>
+  </table>
+
+</body>
+</html>

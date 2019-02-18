@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'students')}">
+
+  <body>
+  
+  
+    <h2>Student Information</h2>
+  
+  
+    <table class="table table-striped" th:object="${student}">
+      <tr>
+        <th>Name</th>
+        <td><b th:text="*{lastName + ' ' + firstName + ' ' +middleName}"></b></td>
+      </tr>
+      <tr>
+        <th>ID</th>
+        <td th:text="*{studentid}" /></td>
+      </tr>
+      <tr>
+        <th>Date Of Birth</th>
+        <td th:text="*{dob}" /></td>
+      </tr>
+      <tr>
+        <th>Address</th>
+        <td th:text="*{address}" /></td>
+      </tr>
+            <tr>
+        <th>Nationality</th>
+        <td th:text="*{nationality}" /></td>
+      </tr>
+            <tr>
+        <th>Sex</th>
+        <td th:text="*{gender}" /></td>
+      </tr>
+            <tr>
+        <th>Primary</th>
+        <td th:text="*{primary}" /></td>
+      </tr>
+                  <tr>
+        <th>Intermediate</th>
+        <td th:text="*{intermediate}" /></td>
+      </tr>
+                  <tr>
+        <th>Highschool</th>
+        <td th:text="*{highschool}" /></td>
+      </tr>
+                      <tr>
+        <th>Date of Admission</th>
+        <td th:text="*{dateOfAdmission}" /></td>
+      </tr>
+                        <tr>
+        <th>Graduate Degree / Title</th>
+        <td th:text="*{degree}" /></td>
+      </tr>
+                  <tr>
+        <th>Date of Graduation</th>
+        <td th:text="*{dateOfGraduation}" /></td>
+      </tr>
+                        <tr>
+        <th>SY</th>
+        <td th:text="*{sy}" /></td>
+      </tr>
+                        <tr>
+        <th>S.O. #</th>
+        <td th:text="*{soNumber}" /></td>
+      </tr>
+      
+    </table>
+  
+    <a th:href="@{{id}/edit(id=${student.studentid})}" class="btn btn-default">Edit
+      Student</a>
+    <a th:href="@{{id}/pets/new(id=${student.studentid})}" class="btn btn-default">Add
+      New Enrollment</a>
+  
+    <br />
+    <br />
+    <br />
+    <h2>Enrolled Term and Course Grades</h2>
+  
+    <table class="table table-striped">
+  
+      <tr th:each="enrollment : ${student.enrollments}">
+        <td valign="top">
+          <dl class="dl-horizontal">
+            <dt>Term</dt>
+            <dd th:text="${enrollment.name}" /></dd>
+            <dt>Start</dt>
+            <dd
+              th:text="${#temporals.format(enrollment.startDate, 'yyyy-MM-dd')}" /></dd>
+               <dt>End</dt>
+            <dd
+              th:text="${#temporals.format(enrollment.endDate, 'yyyy-MM-dd')}" /></dd>
+          </dl>
+        </td>
+        <td valign="top">
+          <table class="table-condensed">
+            <thead>
+              <tr>
+                <th>Course Name</th>
+                <th>Final Grade</th>
+              </tr>
+            </thead>
+            <tr th:each="studentGrade : ${enrollment.studentGrades}">
+             <!--   <td th:text="${#temporals.format(enrollment.date, 'yyyy-MM-dd')}"></td>-->
+              <td th:text="${studentGrade?.courseId}"></td>
+                <td th:text="${studentGrade?.finalGrade}"></td>
+            </tr>
+            <tr>
+              <td><a
+                th:href="@{{studentid}/enrollments/{enrollmentId}/edit(studentid=${student.id},petId=${enrollment.id})}">Edit
+                  Enrollment</a></td>
+              <td><a
+                th:href="@{{studentid}/enrollments/{enrollmentId}/visits/new(studentid=${student.id},enrollmentId=${enrollment.id})}">Add
+                  Enrollment</a></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+  
+    </table>
+  
+  </body>
+
+</html>
