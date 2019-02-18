@@ -31,7 +31,7 @@ class StudentEnrollmentController {
 //    }
 
     @ModelAttribute("student")
-    public Student findStudent(@PathVariable("studentId") String studentId) {
+    public Student findStudent(@PathVariable("studentId") int studentId) {
         return this.studentRepo.findById(studentId);
     }
 

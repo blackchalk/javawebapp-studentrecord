@@ -16,7 +16,7 @@
       </tr>
       <tr>
         <th>ID</th>
-        <td th:text="*{studentid}" /></td>
+        <td th:text="*{studentId}" /></td>
       </tr>
       <tr>
         <th>Date Of Birth</th>
@@ -69,9 +69,9 @@
       
     </table>
   
-    <a th:href="@{{id}/edit(id=${student.studentid})}" class="btn btn-default">Edit
+    <a th:href="@{{id}/edit(id=${student.studentId})}" class="btn btn-default">Edit
       Student</a>
-    <a th:href="@{{id}/pets/new(id=${student.studentid})}" class="btn btn-default">Add
+    <a th:href="@{{id}/pets/new(id=${student.studentId})}" class="btn btn-default">Add
       New Enrollment</a>
   
     <br />
@@ -109,10 +109,10 @@
             </tr>
             <tr>
               <td><a
-                th:href="@{{studentid}/enrollments/{enrollmentId}/edit(studentid=${student.id},petId=${enrollment.id})}">Edit
+                th:href="@{{studentId}/enrollments/{enrollmentId}/edit(studentId=${student.id},enrollmentId=${enrollment.id})}">Edit
                   Enrollment</a></td>
               <td><a
-                th:href="@{{studentid}/enrollments/{enrollmentId}/visits/new(studentid=${student.id},enrollmentId=${enrollment.id})}">Add
+                th:href="@{{studentId}/enrollments/{enrollmentId}/visits/new(studentId=${student.id},enrollmentId=${enrollment.id})}">Add
                   Enrollment</a></td>
             </tr>
           </table>

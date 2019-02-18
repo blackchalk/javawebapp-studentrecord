@@ -19,9 +19,9 @@ public interface StudentRepository extends Repository<Student, Integer> {
 	Collection<Student> findByLastNameAndId(@Param("lastName") String lastName);
 	
 	
-	@Query("SELECT student FROM Student student WHERE student.studentid =:id")
+	@Query("SELECT student FROM Student student WHERE student.id =:id")
     @Transactional(readOnly = true)
-	Student findById(@Param("studentid") String id);
+	Student findById(Integer id);
 	
 	void save(Student student);
 	
